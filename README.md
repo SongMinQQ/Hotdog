@@ -20,6 +20,8 @@ clone 명령어 ```git clone https://github.com/SongMinQQ/Hotdog.git```
 
 깃에 작업물 push하는 방법
 
+push 전에 pull 먼저 해주세요
+
 1. ```git commit -m "커밋 메세지"```
 
 2. ```git push origin [브랜치명]```
