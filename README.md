@@ -18,9 +18,13 @@ clone 명령어 ```git clone https://github.com/SongMinQQ/Hotdog.git```
 
 4. ```git checkout [브랜치명]``` 작업할 브랜치로 이동하는 명령어
 
+push 전에 pull 먼저 해주세요. 다른 브랜치의 진행 내용을 보고 싶을 경우 pull 명령어입니다.
+
+```git pull origin [브랜치명]```
+
 깃에 작업물 push하는 방법
 
-push 전에 pull 먼저 해주세요
+
 
 1. ```git commit -m "커밋 메세지"```
 
