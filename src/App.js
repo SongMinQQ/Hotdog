@@ -8,7 +8,6 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        test
         <StackNavigation />
       </NavigationContainer>
     </SafeAreaProvider>
