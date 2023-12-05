@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import DogSelect from './DogSelect';
 import { TextInput } from 'react-native';
 import axios from 'axios';
+import OpenAI from 'openai';
 
 const Gpt = () => {
+    // const openai = new OpenAI();
     const [dog,setDog] = useState('진돗개');
     const [message, setMessage] = useState('');
 
@@ -12,30 +14,34 @@ const Gpt = () => {
         setDog(dog);
     }
 
-    // const askToGpt = async () => {
-    //     try {
-    //         const response = await axios.post(
-    //             'https://api.openai.com/v1/engines/davinci-codex/completions',
-    //             {
-    //             prompt: `${dog}의 특성에 대해 알려줘`,
-    //             max_tokens: 60,
-    //             },
-    //             {
-    //             headers: {
-    //                 'Authorization': `Bearer YOUR_OPENAI_API_KEY`, // 여기에 OpenAI API 키를 입력하세요
-    //             }
-    //             }
-    //         );
+    const instance = axios.create({
+        baseURL: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer `
+        }
+      });
+    const askToGpt = async () => {
+        try {
+            const response = await instance.post('', {
+              prompt: `${dog}의 특성에 대해 알려줘`,
+              max_tokens: 60
+            });
+            setMessage(response.data.choices[0].text)
+            return response.data.choices[0].text;
+          } catch (error) {
+            console.error(error);
+            return '';
+          }
+    };
     
-    //         setMessage(response.data.choices[0].text);
-    //     } catch (error) {
-    //         console.error('There was an error!', error);
-    //     }
-    // };
-    
+    useEffect(() => {
+        console.log(message)
+    },[message]);
     return (
         <View>
             <DogSelect selectDog={dog} changeFunction={changeDog}/>
+            <TouchableOpacity onPress={askToGpt}><Text>질문하기</Text></TouchableOpacity>
             <TextInput/>
         </View>
     );
