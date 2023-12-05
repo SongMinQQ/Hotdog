@@ -15,10 +15,10 @@ const Gpt = () => {
     }
 
     const instance = axios.create({
-        baseURL: 'https://api.openai.com/v1/engines/curie/completions',
+        baseURL: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer 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`
+          'Authorization': `Bearer `
         }
       });
     const askToGpt = async () => {
