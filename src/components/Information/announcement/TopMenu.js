@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const TopMenu = () => {
   return (
@@ -21,11 +22,11 @@ const TopMenu = () => {
       <View style={styles.blankMenu}></View>
 
       <View style={styles.menu2}>
-        <TouchableOpacity style={[styles.button, styles.filter]}>
-          <Text>F1</Text>
+        <TouchableOpacity style={[styles.button, styles.icon]}>
+          <Ionicons name="filter" size={23} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.filter]}>
-          <Text>F2</Text>
+        <TouchableOpacity style={[styles.button, styles.icon]}>
+          <Ionicons name="heart" size={23} color="#ff5c5c" />
         </TouchableOpacity>
       </View>
     </View>
@@ -41,19 +42,16 @@ const styles = StyleSheet.create({
   },
 
   menu1: {
-    // backgroundColor: "#ebebeb",
     flexDirection: "row",
     justifyContent: "space-around",
     flex: 9,
   },
   menu2: {
-    // backgroundColor: "#ebebeb",
     flexDirection: "row",
     justifyContent: "center",
     flex: 3.5,
   },
   blankMenu: {
-    // backgroundColor: "blue",
     width: 50,
     flex: 0.5,
   },
@@ -63,11 +61,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    // width: "auto",
-    // height: "auto",
     marginHorizontal: 1,
     marginTop: 1,
-    padding: 8,
+    padding: 7,
   },
 
   menuItem: {
@@ -77,8 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 
-  filter: {
-    // backgroundColor: "tomato",
+  icon: {
     width: 40,
   },
 });
