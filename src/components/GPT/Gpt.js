@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import DogSelect from './DogSelect';
@@ -5,7 +6,9 @@ import { TextInput } from 'react-native';
 import axios from 'axios';
 import OpenAI from 'openai';
 
+const api_key = "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";
 const Gpt = () => {
+
     // const openai = new OpenAI();
     const [dog,setDog] = useState('진돗개');
     const [message, setMessage] = useState('');
@@ -45,6 +48,7 @@ const Gpt = () => {
             <TextInput/>
         </View>
     );
+
 };
 
 export default Gpt;
