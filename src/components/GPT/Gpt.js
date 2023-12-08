@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import DogSelect from './DogSelect';
@@ -60,6 +61,7 @@ const Gpt = () => {
             </View>
         </View>
     );
+
 };
 
 const styles = StyleSheet.create({

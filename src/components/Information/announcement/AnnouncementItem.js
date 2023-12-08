@@ -1,65 +1,75 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import symbolicateStackTrace from "react-native/Libraries/Core/Devtools/symbolicateStackTrace";
-import theme from "../colors";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const AnnouncementItem = () => {
+const AnnouncementItem = ({
+  filename,
+  noticeSdt,
+  noticeEdt,
+  kindCd,
+  sexCd,
+  careAddr,
+  happenPlace,
+  processState,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.cellBox}>
         <View style={styles.cellRow}>
-          <View style={styles.imgBox}></View>
-          <View style={styles.infoBox}>
-            <View style={styles.info1}>
-              <View style={styles.info1Column}>
-                <Text style={styles.infoText}>공고기간</Text>
-                <Text style={styles.infoText}>품종</Text>
-                <Text style={styles.infoText}>지역</Text>
-                <Text style={styles.infoText}>구조장소</Text>
-              </View>
-              <View style={styles.info1Column}>
-                <Text style={styles.info1TextBold}>2023.10.23~2023.11.23</Text>
-                <Text style={styles.infoText}>믹스견</Text>
-                <Text style={styles.infoText}>보령시 남천대로 91</Text>
-                <Text style={styles.infoText}>경북 의성</Text>
-              </View>
-            </View>
-            <View style={styles.info23inBox}>
-              <View style={styles.info23}>
-                <Text style={styles.info2}>공고중</Text>
-                <Text style={styles.info3}>암컷</Text>
-              </View>
-              <Text style={styles.interestBtn}>♡</Text>
-            </View>
+          <View style={styles.imgBox}>
+            <Image
+              source={{
+                uri: filename,
+              }}
+              style={styles.imageStyle}
+            />
           </View>
-        </View>
-      </View>
-      <View style={styles.line}></View>
-
-      <View style={styles.cellBox}>
-        <View style={styles.cellRow}>
-          <View style={styles.imgBox}></View>
           <View style={styles.infoBox}>
-            <View style={styles.info1}>
-              <View style={styles.info1Column}>
-                <Text style={styles.infoText}>공고기간</Text>
-                <Text style={styles.infoText}>품종</Text>
-                <Text style={styles.infoText}>지역</Text>
-                <Text style={styles.infoText}>구조장소</Text>
+            <View>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitleText}>공고기간</Text>
+                <Text style={styles.info1TextBold}>
+                  {noticeSdt + "~" + noticeEdt}
+                </Text>
               </View>
-              <View style={styles.info1Column}>
-                <Text style={styles.info1TextBold}>2023.10.23~2023.11.23</Text>
-                <Text style={styles.infoText}>믹스견</Text>
-                <Text style={styles.infoText}>보령시 남천대로 91</Text>
-                <Text style={styles.infoText}>경북 의성</Text>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitleText}>보호품종</Text>
+                <Text style={styles.infoText}>{kindCd}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitleText}>보호지역</Text>
+                <Text style={styles.infoText}>{careAddr}</Text>
+              </View>
+              <View style={styles.infoRow}>
+                <Text style={styles.infoTitleText}>구조장소</Text>
+                <Text style={styles.infoText}>{happenPlace}</Text>
               </View>
             </View>
-            <View style={styles.info23inBox}>
-              <View style={styles.info23}>
-                <Text style={styles.info2}>공고중</Text>
-                <Text style={styles.info3}>암컷</Text>
+
+            <View style={styles.c_infoProcessSexInterest}>
+              <View style={styles.infoProcessSex}>
+                {(() => {
+                  if (processState === "보호중")
+                    return (
+                      <Text style={styles.processIng}>{processState}</Text>
+                    );
+                  else
+                    return (
+                      <Text style={styles.processEtc}>{processState}</Text>
+                    );
+                })()}
+
+                {(() => {
+                  if (sexCd === "M")
+                    return <Text style={styles.infoSexM}>수컷</Text>;
+                  else if (sexCd === "F")
+                    return <Text style={styles.infoSexF}>암컷</Text>;
+                  else return <Text style={styles.infoSexQ}>미상</Text>;
+                })()}
               </View>
-              <Text style={styles.interestBtn}>♡</Text>
+              <TouchableOpacity style={styles.interestBtn}>
+                <Ionicons name="heart-outline" size={23} color="black" />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -72,13 +82,9 @@ const AnnouncementItem = () => {
 export default AnnouncementItem;
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: "green",
-  },
+  container: {},
   cellBox: {
-    // backgroundColor: "grey",
-    marginVertical: 8,
-    borderRadius: 15,
+    marginVertical: 6,
   },
 
   line: {
@@ -87,7 +93,6 @@ const styles = StyleSheet.create({
   },
 
   cellRow: {
-    // backgroundColor: "yellow",
     flexDirection: "row",
   },
 
@@ -96,48 +101,54 @@ const styles = StyleSheet.create({
     flex: 1,
     margin: 5,
     borderRadius: 20,
+    justifyContent: "center",
+  },
+
+  imageStyle: {
+    width: 110,
+    height: 120,
+    alignSelf: "center",
+    justifyContent: "center",
+    borderRadius: 20,
   },
   infoBox: {
-    // backgroundColor: "tomato",
     flex: 2.2,
-    margin: 5,
+    margin: 7,
     marginRight: 10,
   },
 
-  info1: {
-    // backgroundColor: "skyblue",
+  infoRow: {
     flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 3,
   },
 
-  info1Column: {
-    margin: 4,
-    marginRight: 10,
-    justifyContent: "space-around",
+  infoTitleText: {
+    fontWeight: "800",
+    marginRight: 15,
   },
 
   infoText: {
-    marginBottom: 3,
-    fontSize: 15,
+    fontSize: 14,
+    width: "auto",
   },
 
   info1TextBold: {
     fontWeight: "700",
-    marginBottom: 3,
     fontSize: 15,
   },
 
-  info23inBox: {
+  c_infoProcessSexInterest: {
     flexDirection: "row",
-    // backgroundColor: "grey",
     justifyContent: "space-between",
     marginVertical: 3,
   },
 
-  info23: {
+  infoProcessSex: {
     flexDirection: "row",
   },
 
-  info2: {
+  processIng: {
     padding: 4,
     marginRight: 10,
     marginLeft: 4,
@@ -148,7 +159,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 
-  info3: {
+  processEtc: {
+    padding: 4,
+    marginRight: 10,
+    marginLeft: 4,
+    color: "#7e8387",
+    borderColor: "#7e8387",
+    borderWidth: 1.2,
+    borderRadius: 7,
+    alignSelf: "center",
+  },
+
+  infoSexF: {
     padding: 4,
     color: "#e864aa",
     borderColor: "#e864aa",
@@ -156,8 +178,22 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignSelf: "center",
   },
-
-  interestBtn: {
-    fontSize: 24,
+  infoSexM: {
+    padding: 4,
+    color: "#2480d6",
+    borderColor: "#2480d6",
+    borderWidth: 1.2,
+    borderRadius: 7,
+    alignSelf: "center",
   },
+  infoSexQ: {
+    padding: 4,
+    color: "#7e8387",
+    borderColor: "#7e8387",
+    borderWidth: 1.2,
+    borderRadius: 7,
+    alignSelf: "center",
+  },
+
+  interestBtn: {},
 });
