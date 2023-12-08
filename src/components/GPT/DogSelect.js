@@ -27,7 +27,7 @@ const DogSelect = (props) => {
     ];
     
     return (
-        <View>
+        <View style={styles.pickerContainer}>
             <PickerSelect
                 onValueChange={(itemValue) => props.changeFunction(itemValue)}
                 items={dogs}
@@ -39,8 +39,13 @@ const DogSelect = (props) => {
         </View>
     );
 };
-
+const styles = StyleSheet.create({
+  pickerContainer : {
+    flex: 3
+  }
+})
 const pickerSelectStyles = StyleSheet.create({
+
     inputIOS: {
       fontSize: 16,
       paddingVertical: 12,
