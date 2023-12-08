@@ -1,54 +1,111 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import DogSelect from './DogSelect';
 import { TextInput } from 'react-native';
 import axios from 'axios';
-import OpenAI from 'openai';
+import { AntDesign } from '@expo/vector-icons'; 
+import Loading from '../Loading/Loading';
 
-const api_key = "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";
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 const Gpt = () => {
-
-    // const openai = new OpenAI();
     const [dog,setDog] = useState('진돗개');
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('특성을 알아볼 견종을 선택한 후 버튼을 터치하세요');
+    const [loading, setLoading] = useState(false);
 
     const changeDog = (dog) => {
         setDog(dog);
     }
 
-    const instance = axios.create({
-        baseURL: 'https://api.openai.com/v1/engines/text-davinci-003/completions',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer `
-        }
-      });
     const askToGpt = async () => {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer `,
+            'OpenAI-Organization': 'org-9NXrWYPCvoUucwgOFCmCPB7o'
+        };
         try {
-            const response = await instance.post('', {
-              prompt: `${dog}의 특성에 대해 알려줘`,
-              max_tokens: 60
-            });
-            setMessage(response.data.choices[0].text)
-            return response.data.choices[0].text;
-          } catch (error) {
+            setLoading(true);
+            const response = await axios.post(
+                'https://api.openai.com/v1/engines/text-davinci-003/completions',
+                {
+                    prompt: `${dog}의 특징을 3줄 이내로 알려줘`,
+                    max_tokens: 500
+                },
+                { headers: headers }
+            );
+            setMessage(response.data.choices[0].text);
+        } catch (error) {
             console.error(error);
-            return '';
-          }
+        } finally {
+            setLoading(false);
+        }
     };
     
     useEffect(() => {
         console.log(message)
     },[message]);
     return (
-        <View>
-            <DogSelect selectDog={dog} changeFunction={changeDog}/>
-            <TouchableOpacity onPress={askToGpt}><Text>질문하기</Text></TouchableOpacity>
-            <TextInput/>
+        <View style={styles.mainView}>
+            {loading && <Loading/>}
+            <Text style={styles.componentSubject}>견종의 특성에 대해 알아보세요!</Text>
+            <View style={styles.searchWrap}>
+                <DogSelect selectDog={dog} changeFunction={changeDog}/>
+                <TouchableOpacity onPress={askToGpt} style={styles.askButton}>
+                    <AntDesign name="arrowdown" size={24} color="black" />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.resultWrap}>
+                <TextInput value={message} style={styles.result} editable={false} multiline={true}/>
+            </View>
         </View>
     );
 
 };
 
+const styles = StyleSheet.create({
+    mainView : {
+        flex : 1,
+        backgroundColor : '#fff',
+    },
+    searchWrap : {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems : 'center',
+        justifyContent : 'center',
+        gap: 10,
+        paddingBottom: 15,
+        paddingLeft : 10,
+        paddingRight : 10,
+    },
+    result : {
+        width : screenWidth - 10,
+        textAlignVertical: 'top',
+        padding: 5,
+        color : 'black',
+        fontSize : 17,
+        borderWidth: 2, // 테두리 두께
+        borderColor: 'black', // 테두리 색상
+        borderRadius: 10, // 모서리 둥글기
+        flex : 1,
+        marginBottom : 15,
+    },
+    resultWrap : {
+        alignItems : 'center',
+        flex : 1,
+        width: '100%'
+    },
+    componentSubject : {
+        textAlign : 'center',
+        fontSize: 20,
+        padding : 20,
+    },
+    askButton : {
+        borderWidth: 3, // 테두리 두께
+        borderColor: 'black', // 테두리 색상
+        borderRadius: 10, // 모서리 둥글기
+        padding: 5, // 버튼 내부 여백
+    }
+})
 export default Gpt;
