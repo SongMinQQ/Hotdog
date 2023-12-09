@@ -43,3 +43,5 @@ push 전에 pull 먼저 해주세요. 다른 브랜치의 진행 내용을 보�
 5. ```npx expo start --tunnel```
 
 프로젝트 진행 시 사용할 이미지 파일은 img 폴더에 정리해 주세요
+
+지민 - test
