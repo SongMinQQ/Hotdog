@@ -1,11 +1,18 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import Announcement from "./Announcement";
+import FindShelter from "./FindShelter";
+
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 const DogInfo = () => {
+  const Tab = createMaterialTopTabNavigator();
+
   return (
-    <View>
-      <Text>박지민 담당 : 유기견정보 페이지</Text>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="유기견 공고" component={Announcement} />
+      <Tab.Screen name="보호소 찾기" component={FindShelter} />
+    </Tab.Navigator>
   );
 };
 
