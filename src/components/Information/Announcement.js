@@ -6,20 +6,20 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
-import FilterItem from "./announcement/FilterItem";
-import FilterSetting from "./announcement/FilterSetting";
-import InterestList from "./announcement/InterestList";
 import AnnouncementItem from "./announcement/AnnouncementItem";
-
 import TopMenu from "./announcement/TopMenu";
+import Loading from "../Loading/Loading";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const Announcement = ({ navigation }) => {
-  const [apiResponse, setApiResponse] = useState({});
+  const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
 
-  const getAnnouncemnetList = () => {
-    var xhr = new XMLHttpRequest();
+  const getAnnouncemnet = async () => {
     var url =
       "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
     var queryParams =
@@ -37,26 +37,27 @@ const Announcement = ({ navigation }) => {
     queryParams +=
       "&" + encodeURIComponent("upkind") + "=" + encodeURIComponent("417000");
 
-    xhr.open("GET", url + queryParams);
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4) {
-        const resultStr = xhr.response;
+    try {
+      setLoading(true);
 
-        const jsonResult = JSON.parse(resultStr);
+      const response = await fetch(url + queryParams);
+      const jsonData = await response.json();
 
-        // setApiResponse(jsonResult);
-        setItems(jsonResult.response.body.items.item);
-      }
-    };
-    xhr.send("");
+      setItems(jsonData.response.body.items.item);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    getAnnouncemnetList();
+    getAnnouncemnet();
   }, []);
 
   return (
     <View style={styles.container}>
+      {loading && <Loading />}
       <TopMenu />
       <ScrollView>
         {Object.values(items).map((item) => (
@@ -83,18 +84,28 @@ const Announcement = ({ navigation }) => {
                 careTel: item.careTel,
               })
             }
+            key={item.desertionNo}
           >
             <AnnouncementItem
               key={item.desertionNo}
               desertionNo={item.desertionNo}
+              noticeNo={item.noticeNo}
               filename={item.filename}
+              popfile={item.popfile}
               noticeSdt={item.noticeSdt}
               noticeEdt={item.noticeEdt}
+              happenPlace={item.happenPlace}
               kindCd={item.kindCd}
               sexCd={item.sexCd}
-              careAddr={item.careAddr}
-              happenPlace={item.happenPlace}
+              weight={item.weight}
+              age={item.age}
+              colorCd={item.colorCd}
+              neuterYn={item.neuterYn}
+              specialMark={item.specialMark}
               processState={item.processState}
+              careAddr={item.careAddr}
+              careNm={item.careNm}
+              careTel={item.careTel}
             />
           </TouchableOpacity>
         ))}
@@ -108,7 +119,8 @@ export default Announcement;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
-    paddingTop: 10, // bottom은 scrollView 있기 때문에 padding 없이
+    paddingTop: 10,
+    flex: 1,
   },
   title: {
     fontSize: 30,

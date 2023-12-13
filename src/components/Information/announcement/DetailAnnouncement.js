@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Entypo } from "@expo/vector-icons";
+
+import Like from "./Like";
+import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
   const desertionNo = route.params.desertionNo;
@@ -22,9 +26,45 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
   const careNm = route.params.careNm;
   const careTel = route.params.careTel;
 
+  let dispatch = useDispatch();
+  const [like, setLike] = useState(false);
+  let list = useSelector((state) => state.like);
+  const heartOn =
+    list.map((item) => item.desertionNo).find((key) => key === desertionNo) ===
+    desertionNo;
+
+  const toggleHeart = () => {
+    setLike(!false);
+    if (heartOn === true) dispatch(deleteLike(desertionNo));
+    if (heartOn === false) {
+      dispatch(
+        insertLike({
+          key: desertionNo,
+          desertionNo: desertionNo,
+          noticeNo: noticeNo,
+          filename: filename,
+          popfile: popfile,
+          noticeSdt: noticeSdt,
+          noticeEdt: noticeEdt,
+          happenPlace: happenPlace,
+          kindCd: kindCd,
+          sexCd: sexCd,
+          weight: weight,
+          age: age,
+          colorCd: colorCd,
+          neuterYn: neuterYn,
+          specialMark: specialMark,
+          processState: processState,
+          careAddr: careAddr,
+          careNm: careNm,
+          careTel: careTel,
+        })
+      );
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {/* c_ProcessImg */}
       <View style={styles.c_ProcessImg}>
         <View style={styles.emptyFlex1}>
           {(() => {
@@ -43,15 +83,16 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
         </View>
         <View style={styles.emptyFlex1}></View>
       </View>
-      {/* c_TitleShare */}
       <View style={styles.c_TitleShare}>
         <Text style={styles.title}>{kindCd}</Text>
         <TouchableOpacity style={styles.icon}>
           <Entypo name="share" size={23} color="#545454" />
         </TouchableOpacity>
+        <TouchableOpacity style={styles.interestBtn} onPress={toggleHeart}>
+          <Like heartOn={heartOn} like={like} setLike={setLike} />
+        </TouchableOpacity>
       </View>
 
-      {/* c_infoCell */}
       <View style={styles.c_infoCell}>
         <View style={styles.infoCellColumn}>
           <View style={styles.infoCellRow1}>
@@ -59,7 +100,13 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
               성별
             </Text>
           </View>
-          <Text style={styles.infoCellText}>{sexCd}</Text>
+          {(() => {
+            if (sexCd === "M")
+              return <Text style={styles.infoCellText}>수컷</Text>;
+            else if (sexCd === "F")
+              return <Text style={styles.infoCellText}>암컷</Text>;
+            else return <Text style={styles.infoCellText}>미상</Text>;
+          })()}
         </View>
         <View style={styles.infoCellColumn}>
           <View style={styles.infoCellRow1}>
@@ -67,7 +114,13 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
               중성화
             </Text>
           </View>
-          <Text style={styles.infoCellText}>{neuterYn}</Text>
+          {(() => {
+            if (neuterYn === "Y")
+              return <Text style={styles.infoCellText}>완료</Text>;
+            else if (neuterYn === "N")
+              return <Text style={styles.infoCellText}>안함</Text>;
+            else return <Text style={styles.infoCellText}>미상</Text>;
+          })()}
         </View>
 
         <View style={styles.infoCellColumn}>
@@ -96,12 +149,10 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
         </View>
       </View>
 
-      {/* c_specialMark */}
       <View style={styles.c_specialMark}>
         <Text style={styles.specialMarkText}>{specialMark}</Text>
       </View>
 
-      {/* c_info */}
       <View style={styles.c_info}>
         <View style={styles.infoRow}>
           <Text style={styles.infoTitleText}>공고번호</Text>
@@ -133,7 +184,6 @@ export default DetailAnnouncement;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: "skyblue",
     marginHorizontal: 12,
   },
   title: {},
@@ -145,7 +195,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 23,
   },
-  // c_ProcessImg
   c_ProcessImg: {
     flexDirection: "row",
     padding: 10,
@@ -181,7 +230,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  // c_TitleShare
   c_TitleShare: {
     flexDirection: "row",
     alignItems: "center",
@@ -195,7 +243,6 @@ const styles = StyleSheet.create({
   },
   icon: {},
 
-  // c_infoCell
   c_infoCell: {
     flexDirection: "row",
     marginHorizontal: 25,
@@ -230,7 +277,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#dedede",
   },
 
-  // c_info
   c_info: {
     paddingVertical: 10,
   },

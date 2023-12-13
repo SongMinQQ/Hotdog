@@ -1,30 +1,21 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
 import Like from "./Like";
+
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const AnnouncementItem = ({
+const LikeItem = ({
   desertionNo,
-  noticeNo,
   filename,
-  popfile,
   noticeSdt,
   noticeEdt,
-  happenPlace,
   kindCd,
   sexCd,
-  weight,
-  age,
-  colorCd,
-  neuterYn,
-  specialMark,
-  processState,
   careAddr,
-  careNm,
-  careTel,
+  happenPlace,
+  processState,
 }) => {
   let dispatch = useDispatch();
   const [like, setLike] = useState(false);
@@ -41,23 +32,14 @@ const AnnouncementItem = ({
         insertLike({
           key: desertionNo,
           desertionNo: desertionNo,
-          noticeNo: noticeNo,
           filename: filename,
-          popfile: popfile,
           noticeSdt: noticeSdt,
           noticeEdt: noticeEdt,
-          happenPlace: happenPlace,
           kindCd: kindCd,
           sexCd: sexCd,
-          weight: weight,
-          age: age,
-          colorCd: colorCd,
-          neuterYn: neuterYn,
-          specialMark: specialMark,
-          processState: processState,
           careAddr: careAddr,
-          careNm: careNm,
-          careTel: careTel,
+          happenPlace: happenPlace,
+          processState: processState,
         })
       );
     }
@@ -134,7 +116,7 @@ const AnnouncementItem = ({
   );
 };
 
-export default AnnouncementItem;
+export default LikeItem;
 
 const styles = StyleSheet.create({
   container: {},
