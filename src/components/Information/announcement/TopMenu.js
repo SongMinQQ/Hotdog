@@ -2,7 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import { useNavigation } from "@react-navigation/native";
+
 const TopMenu = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.topMenu}>
       <View style={styles.menu1}>
@@ -25,7 +28,10 @@ const TopMenu = () => {
         <TouchableOpacity style={[styles.button, styles.icon]}>
           <Ionicons name="filter" size={23} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.icon]}>
+        <TouchableOpacity
+          style={[styles.button, styles.icon]}
+          onPress={() => navigation.navigate("MyLike")}
+        >
           <Ionicons name="heart" size={23} color="#ff5c5c" />
         </TouchableOpacity>
       </View>
