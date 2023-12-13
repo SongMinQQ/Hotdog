@@ -29,8 +29,7 @@ const Gpt = () => {
   const askToGpt = async () => {
     const headers = {
       "Content-Type": "application/json",
-      Authorization: `Bearer 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`,
-      "OpenAI-Organization": "org-9NXrWYPCvoUucwgOFCmCPB7o",
+      Authorization: `Bearer `,
     };
     try {
       setLoading(true);
