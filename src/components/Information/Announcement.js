@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   ScrollView,
   TouchableOpacity,
   Dimensions,
@@ -118,6 +117,9 @@ export default Announcement;
 
 const styles = StyleSheet.create({
   container: {
+    width: screenWidth - 10,
+    alignSelf: "center",
+
     paddingHorizontal: 15,
     paddingTop: 10,
     flex: 1,
