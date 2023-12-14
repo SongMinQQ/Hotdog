@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from "react-native";
 
 import Like from "./Like";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const AnnouncementItem = ({
   desertionNo,
@@ -89,7 +98,9 @@ const AnnouncementItem = ({
               </View>
               <View style={styles.infoRow}>
                 <Text style={styles.infoTitleText}>보호지역</Text>
-                <Text style={styles.infoText}>{careAddr}</Text>
+                <View style={styles.textWrap}>
+                  <Text style={styles.infoText}>{careAddr}</Text>
+                </View>
               </View>
               <View style={styles.infoRow}>
                 <Text style={styles.infoTitleText}>구조장소</Text>
@@ -137,7 +148,9 @@ const AnnouncementItem = ({
 export default AnnouncementItem;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   cellBox: {
     marginVertical: 6,
   },
@@ -152,24 +165,19 @@ const styles = StyleSheet.create({
   },
 
   imgBox: {
-    backgroundColor: "#cccccc",
     flex: 1,
-    margin: 5,
-    borderRadius: 20,
-    justifyContent: "center",
+    marginRight: 5,
+    marginVertical: 8,
   },
 
   imageStyle: {
-    width: 110,
-    height: 120,
-    alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 20,
+    width: "100%",
+    height: "100%",
+    borderRadius: 15,
   },
   infoBox: {
-    flex: 2.2,
-    margin: 7,
-    marginRight: 10,
+    flex: 2,
+    padding: 5,
   },
 
   infoRow: {
@@ -179,24 +187,28 @@ const styles = StyleSheet.create({
   },
 
   infoTitleText: {
-    fontWeight: "800",
-    marginRight: 15,
+    fontWeight: "700",
+    marginRight: 12,
+  },
+
+  textWrap: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    marginRight: 70,
   },
 
   infoText: {
-    fontSize: 14,
-    width: "auto",
+    fontSize: 12,
   },
 
   info1TextBold: {
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: 13,
   },
 
   c_infoProcessSexInterest: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 3,
   },
 
   infoProcessSex: {
@@ -249,6 +261,4 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     alignSelf: "center",
   },
-
-  interestBtn: {},
 });
