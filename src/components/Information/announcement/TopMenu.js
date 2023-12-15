@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { vw, vh } from "react-native-expo-viewport-units";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,13 +28,13 @@ const TopMenu = () => {
 
       <View style={styles.menu2}>
         <TouchableOpacity style={[styles.button, styles.icon]}>
-          <Ionicons name="filter" size={23} color="black" />
+          <Feather name="filter" size={vw(5.2)} color="#777778" />
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, styles.icon]}
           onPress={() => navigation.navigate("MyLike")}
         >
-          <Ionicons name="heart" size={23} color="#ff5c5c" />
+          <Ionicons name="heart" size={vw(5.4)} color="#ff5c5c" />
         </TouchableOpacity>
       </View>
     </View>
@@ -45,41 +47,40 @@ const styles = StyleSheet.create({
   topMenu: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingVertical: vw(1.2),
   },
 
   menu1: {
+    flex: 9,
     flexDirection: "row",
     justifyContent: "space-around",
-    flex: 9,
   },
   menu2: {
+    flex: 3.2,
     flexDirection: "row",
-    justifyContent: "center",
-    flex: 3.5,
+    justifyContent: "space-around",
   },
   blankMenu: {
-    width: 50,
-    flex: 0.5,
+    flex: 0.3,
   },
 
   button: {
-    height: 35,
+    height: vh(3.5),
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
-    marginHorizontal: 1,
-    marginTop: 1,
-    padding: 7,
+    borderRadius: vw(1.3),
+    padding: vw(2),
   },
 
   menuItem: {
-    backgroundColor: "#ebebeb",
+    backgroundColor: "#f5f5f5",
   },
   menuItemText: {
-    fontSize: 15,
+    fontSize: vw(3.5),
   },
 
   icon: {
-    width: 40,
+    padding: vw(0),
+    alignSelf: "center",
   },
 });

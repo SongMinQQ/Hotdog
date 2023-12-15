@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { Ionicons } from "@expo/vector-icons";
 
-export default function Like({ like, setLike, heartOn }) {
+export default function Like({ like, setLike, heartOn, iconSize }) {
   useEffect(() => {
     if (heartOn === true) {
       setLike(true);
@@ -16,9 +16,9 @@ export default function Like({ like, setLike, heartOn }) {
   return (
     <View>
       {like === true ? (
-        <Ionicons name="heart" size={23} color="#ff5c5c" />
+        <Ionicons name="heart" size={iconSize} color="#ff5c5c" />
       ) : (
-        <Ionicons name="heart-outline" size={23} color="black" />
+        <Ionicons name="heart-outline" size={iconSize} color="black" />
       )}
     </View>
   );

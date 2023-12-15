@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { vw, vh } from "react-native-expo-viewport-units";
+
 import Like from "./Like";
 
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
@@ -71,7 +72,9 @@ const LikeItem = ({
               </View>
               <View style={styles.infoRow}>
                 <Text style={styles.infoTitleText}>보호지역</Text>
-                <Text style={styles.infoText}>{careAddr}</Text>
+                <View style={styles.textWrap}>
+                  <Text style={styles.infoText}>{careAddr}</Text>
+                </View>
               </View>
               <View style={styles.infoRow}>
                 <Text style={styles.infoTitleText}>구조장소</Text>
@@ -105,7 +108,12 @@ const LikeItem = ({
                 style={styles.interestBtn}
                 onPress={toggleHeart}
               >
-                <Like heartOn={heartOn} like={like} setLike={setLike} />
+                <Like
+                  heartOn={heartOn}
+                  like={like}
+                  setLike={setLike}
+                  iconSize={vw(5.2)}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -119,14 +127,16 @@ const LikeItem = ({
 export default LikeItem;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   cellBox: {
-    marginVertical: 6,
+    marginVertical: vh(0.3),
   },
 
   line: {
     borderColor: "#cccccc",
-    borderWidth: 0.5,
+    borderWidth: vh(0.05),
   },
 
   cellRow: {
@@ -134,103 +144,113 @@ const styles = StyleSheet.create({
   },
 
   imgBox: {
-    backgroundColor: "#cccccc",
     flex: 1,
-    margin: 5,
-    borderRadius: 20,
+    marginRight: vw(0.5),
+    marginVertical: vh(0.6),
     justifyContent: "center",
   },
 
   imageStyle: {
-    width: 110,
-    height: 120,
-    alignSelf: "center",
-    justifyContent: "center",
-    borderRadius: 20,
+    width: vw(30),
+    height: vh(14),
+    borderRadius: vw(4),
   },
   infoBox: {
-    flex: 2.2,
-    margin: 7,
-    marginRight: 10,
+    flex: 2,
+    justifyContent: "center",
+    padding: vw(2.4),
   },
 
   infoRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 3,
+    marginBottom: vh(0.4),
   },
 
   infoTitleText: {
-    fontWeight: "800",
-    marginRight: 15,
+    fontWeight: "700",
+    marginRight: vw(1.5),
+    fontSize: vw(3.3),
+  },
+
+  textWrap: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+    marginRight: vw(12),
   },
 
   infoText: {
-    fontSize: 14,
-    width: "auto",
+    fontSize: vw(3.3),
   },
 
   info1TextBold: {
     fontWeight: "700",
-    fontSize: 15,
+    fontSize: vw(3.3),
   },
 
   c_infoProcessSexInterest: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 3,
+    paddingVertical: vw(1),
   },
 
   infoProcessSex: {
+    flex: 7,
     flexDirection: "row",
   },
 
+  interestBtn: {
+    flex: 1,
+    justifyContent: "center",
+  },
+
   processIng: {
-    padding: 4,
-    marginRight: 10,
-    marginLeft: 4,
+    padding: vw(1),
+    marginRight: vw(1.5),
     color: "#5fb51d",
     borderColor: "#5fb51d",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     alignSelf: "center",
+    fontSize: vw(3.3),
   },
 
   processEtc: {
-    padding: 4,
-    marginRight: 10,
-    marginLeft: 4,
+    padding: vw(1),
+    marginRight: vw(1.5),
     color: "#7e8387",
     borderColor: "#7e8387",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     alignSelf: "center",
+    fontSize: vw(3.3),
   },
 
   infoSexF: {
-    padding: 4,
     color: "#e864aa",
     borderColor: "#e864aa",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
+    fontSize: vw(3.3),
     alignSelf: "center",
   },
   infoSexM: {
-    padding: 4,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     color: "#2480d6",
     borderColor: "#2480d6",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    fontSize: vw(3.3),
     alignSelf: "center",
   },
   infoSexQ: {
-    padding: 4,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     color: "#7e8387",
+    fontSize: vw(3.3),
     borderColor: "#7e8387",
-    borderWidth: 1.2,
-    borderRadius: 7,
     alignSelf: "center",
   },
-
-  interestBtn: {},
 });
