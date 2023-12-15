@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import { vw, vh } from "react-native-expo-viewport-units";
 import AnnouncementItem from "./announcement/AnnouncementItem";
 import TopMenu from "./announcement/TopMenu";
 import Loading from "../Loading/Loading";
@@ -55,60 +56,65 @@ const Announcement = ({ navigation }) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {loading && <Loading />}
-      <TopMenu />
-      <ScrollView>
-        {Object.values(items).map((item) => (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate("DetailAnnouncement", {
-                desertionNo: item.desertionNo,
-                noticeNo: item.noticeNo,
-                filename: item.filename,
-                popfile: item.popfile,
-                noticeSdt: item.noticeSdt,
-                noticeEdt: item.noticeEdt,
-                happenPlace: item.happenPlace,
-                kindCd: item.kindCd,
-                sexCd: item.sexCd,
-                weight: item.weight,
-                age: item.age,
-                colorCd: item.colorCd,
-                neuterYn: item.neuterYn,
-                specialMark: item.specialMark,
-                processState: item.processState,
-                careAddr: item.careAddr,
-                careNm: item.careNm,
-                careTel: item.careTel,
-              })
-            }
-            key={item.desertionNo}
-          >
-            <AnnouncementItem
+    <View
+      style={{ width: vw(100), height: vh(100), backgroundColor: "#ffffff" }}
+    >
+      <View style={styles.container}>
+        {loading && <Loading />}
+        <TopMenu style={styles.topMenu} />
+        <ScrollView>
+          {Object.values(items).map((item) => (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("DetailAnnouncement", {
+                  desertionNo: item.desertionNo,
+                  noticeNo: item.noticeNo,
+                  filename: item.filename,
+                  popfile: item.popfile,
+                  noticeSdt: item.noticeSdt,
+                  noticeEdt: item.noticeEdt,
+                  happenPlace: item.happenPlace,
+                  kindCd: item.kindCd,
+                  sexCd: item.sexCd,
+                  weight: item.weight,
+                  age: item.age,
+                  colorCd: item.colorCd,
+                  neuterYn: item.neuterYn,
+                  specialMark: item.specialMark,
+                  processState: item.processState,
+                  careAddr: item.careAddr,
+                  careNm: item.careNm,
+                  careTel: item.careTel,
+                })
+              }
               key={item.desertionNo}
-              desertionNo={item.desertionNo}
-              noticeNo={item.noticeNo}
-              filename={item.filename}
-              popfile={item.popfile}
-              noticeSdt={item.noticeSdt}
-              noticeEdt={item.noticeEdt}
-              happenPlace={item.happenPlace}
-              kindCd={item.kindCd}
-              sexCd={item.sexCd}
-              weight={item.weight}
-              age={item.age}
-              colorCd={item.colorCd}
-              neuterYn={item.neuterYn}
-              specialMark={item.specialMark}
-              processState={item.processState}
-              careAddr={item.careAddr}
-              careNm={item.careNm}
-              careTel={item.careTel}
-            />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+            >
+              <AnnouncementItem
+                style={styles.announcementItem}
+                key={item.desertionNo}
+                desertionNo={item.desertionNo}
+                noticeNo={item.noticeNo}
+                filename={item.filename}
+                popfile={item.popfile}
+                noticeSdt={item.noticeSdt}
+                noticeEdt={item.noticeEdt}
+                happenPlace={item.happenPlace}
+                kindCd={item.kindCd}
+                sexCd={item.sexCd}
+                weight={item.weight}
+                age={item.age}
+                colorCd={item.colorCd}
+                neuterYn={item.neuterYn}
+                specialMark={item.specialMark}
+                processState={item.processState}
+                careAddr={item.careAddr}
+                careNm={item.careNm}
+                careTel={item.careTel}
+              />
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
@@ -117,15 +123,10 @@ export default Announcement;
 
 const styles = StyleSheet.create({
   container: {
-    width: screenWidth - 10,
+    width: vw(98),
+    paddingHorizontal: vw(2),
+    paddingTop: vw(2),
     alignSelf: "center",
-
-    paddingHorizontal: 15,
-    paddingTop: 10,
     flex: 1,
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: "700",
   },
 });
