@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import { vw, vh } from "react-native-expo-viewport-units";
 
 import Like from "./Like";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
@@ -134,7 +135,12 @@ const AnnouncementItem = ({
                 style={styles.interestBtn}
                 onPress={toggleHeart}
               >
-                <Like heartOn={heartOn} like={like} setLike={setLike} />
+                <Like
+                  heartOn={heartOn}
+                  like={like}
+                  setLike={setLike}
+                  iconSize={vw(5.2)}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -152,12 +158,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   cellBox: {
-    marginVertical: 6,
+    marginVertical: vh(0.3),
   },
 
   line: {
     borderColor: "#cccccc",
-    borderWidth: 0.5,
+    borderWidth: vh(0.05),
   },
 
   cellRow: {
@@ -166,99 +172,112 @@ const styles = StyleSheet.create({
 
   imgBox: {
     flex: 1,
-    marginRight: 5,
-    marginVertical: 8,
+    marginRight: vw(0.5),
+    marginVertical: vh(0.6),
+    justifyContent: "center",
   },
 
   imageStyle: {
-    width: "100%",
-    height: "100%",
-    borderRadius: 15,
+    width: vw(30),
+    height: vh(14),
+    borderRadius: vw(4),
   },
   infoBox: {
     flex: 2,
-    padding: 5,
+    justifyContent: "center",
+    padding: vw(2.4),
   },
 
   infoRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 3,
+    marginBottom: vh(0.4),
   },
 
   infoTitleText: {
     fontWeight: "700",
-    marginRight: 12,
+    marginRight: vw(1.5),
+    fontSize: vw(3.3),
   },
 
   textWrap: {
     flexWrap: "wrap",
     flexDirection: "row",
-    marginRight: 70,
+    marginRight: vw(12),
   },
 
   infoText: {
-    fontSize: 12,
+    fontSize: vw(3.3),
   },
 
   info1TextBold: {
     fontWeight: "700",
-    fontSize: 13,
+    fontSize: vw(3.3),
   },
 
   c_infoProcessSexInterest: {
     flexDirection: "row",
     justifyContent: "space-between",
+    paddingVertical: vw(1),
   },
 
   infoProcessSex: {
+    flex: 7,
     flexDirection: "row",
   },
 
+  interestBtn: {
+    flex: 1,
+    justifyContent: "center",
+  },
+
   processIng: {
-    padding: 4,
-    marginRight: 10,
-    marginLeft: 4,
+    padding: vw(1),
+    marginRight: vw(1.5),
     color: "#5fb51d",
     borderColor: "#5fb51d",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     alignSelf: "center",
+    fontSize: vw(3.3),
   },
 
   processEtc: {
-    padding: 4,
-    marginRight: 10,
-    marginLeft: 4,
+    padding: vw(1),
+    marginRight: vw(1.5),
     color: "#7e8387",
     borderColor: "#7e8387",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     alignSelf: "center",
+    fontSize: vw(3.3),
   },
 
   infoSexF: {
-    padding: 4,
     color: "#e864aa",
     borderColor: "#e864aa",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
+    fontSize: vw(3.3),
     alignSelf: "center",
   },
   infoSexM: {
-    padding: 4,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     color: "#2480d6",
     borderColor: "#2480d6",
-    borderWidth: 1.2,
-    borderRadius: 7,
+    fontSize: vw(3.3),
     alignSelf: "center",
   },
   infoSexQ: {
-    padding: 4,
+    padding: vw(1),
+    borderWidth: vw(0.3),
+    borderRadius: vw(1.8),
     color: "#7e8387",
+    fontSize: vw(3.3),
     borderColor: "#7e8387",
-    borderWidth: 1.2,
-    borderRadius: 7,
     alignSelf: "center",
   },
 });
