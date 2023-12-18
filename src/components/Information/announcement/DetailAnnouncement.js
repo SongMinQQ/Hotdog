@@ -75,6 +75,15 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
     }
   };
 
+  const openImg = async () => {
+    try {
+      await Linking.openURL(`${popfile}`);
+    } catch (e) {
+      Alert.alert("이미지 열기 오류", "이미지를 열 수 없습니다.");
+      console.log(e);
+    }
+  };
+
   const callPhone = async () => {
     try {
       await Linking.openURL(`tel:${careTel}`);
@@ -107,12 +116,14 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
             })()}
           </View>
           <View style={styles.imgBox}>
-            <Image
-              source={{
-                uri: popfile,
-              }}
-              style={styles.imageStyle}
-            />
+            <TouchableOpacity onPress={openImg}>
+              <Image
+                source={{
+                  uri: popfile,
+                }}
+                style={styles.imageStyle}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.emptyFlex1}></View>
         </View>

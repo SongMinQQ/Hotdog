@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+} from "react-native";
 import { vw, vh } from "react-native-expo-viewport-units";
 import AnnouncementItem from "./announcement/AnnouncementItem";
 import TopMenu from "./announcement/TopMenu";
@@ -12,6 +18,30 @@ const Announcement = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
   const switchValue = useSelector((state) => state.switchSlice.active);
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    getAnnouncemnet();
+  }, []);
+
+  useEffect(() => {
+    if (switchValue) {
+      getAnnouncemnetClosing();
+    } else {
+      getAnnouncemnet();
+    }
+  }, [switchValue]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    if (switchValue) {
+      getAnnouncemnetClosing();
+    } else {
+      getAnnouncemnet();
+    }
+    setIsRefreshing(false);
+  };
 
   const getAnnouncemnet = async () => {
     var url =
@@ -85,18 +115,6 @@ const Announcement = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    getAnnouncemnet();
-  }, []);
-
-  useEffect(() => {
-    if (switchValue) {
-      getAnnouncemnetClosing();
-    } else {
-      getAnnouncemnet();
-    }
-  }, [switchValue]);
-
   return (
     <View
       style={{ width: vw(100), height: vh(100), backgroundColor: "#ffffff" }}
@@ -104,7 +122,14 @@ const Announcement = ({ navigation }) => {
       <View style={styles.container}>
         {loading && <Loading />}
         <TopMenu style={styles.topMenu} />
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+            />
+          }
+        >
           {Object.values(items).map((item) => (
             <TouchableOpacity
               onPress={() =>
