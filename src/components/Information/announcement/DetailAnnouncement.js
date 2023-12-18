@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Linking,
+  Alert,
+} from "react-native";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -63,6 +71,15 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
           careTel: careTel,
         })
       );
+    }
+  };
+
+  const callPhone = async () => {
+    try {
+      Linking.openURL(`tel:${careTel}`);
+    } catch (e) {
+      Alert.alert("전화 연결 오류", "기기 전화에 연결할 수 없습니다");
+      console.log(e);
     }
   };
 
@@ -183,7 +200,9 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
           <View style={styles.infoRow}>
             <Text style={styles.infoTitleText}>보호센터</Text>
             <Text>{careNm + "  "}</Text>
-            <Text style={styles.infoCareTelText}>{careTel}</Text>
+            <TouchableOpacity onPress={callPhone}>
+              <Text style={styles.infoCareTelText}>{careTel}</Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.infoRow}>
             <Text style={styles.infoTitleText}>보호주소</Text>

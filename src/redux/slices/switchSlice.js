@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialStateValue = {
-  active: true,
+  active: false,
 };
 
 const switchSlice = createSlice({
