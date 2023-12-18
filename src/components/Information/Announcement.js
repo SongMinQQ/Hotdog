@@ -53,7 +53,7 @@ const Announcement = ({ navigation }) => {
       "wR34V8YlK4Q0LeJio9OgWCIEFSNjOqSZ9nay8hJAJQEVQ1HOQ91RC0gtt1uPkud6%2FBkxjmVNpbl798wCvxA1YA%3D%3D";
 
     queryParams +=
-      "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("50");
+      "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("100");
     queryParams +=
       "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1");
     queryParams +=
