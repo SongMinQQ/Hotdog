@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { vw, vh } from "react-native-expo-viewport-units";
-
-import Like from "./Like";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+import Like from "./Like";
+
+import { Feather } from "@expo/vector-icons";
+import { vw, vh } from "react-native-expo-viewport-units";
+import { theme } from "../colors";
 
 const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
   const desertionNo = route.params.desertionNo;
@@ -221,8 +223,8 @@ const styles = StyleSheet.create({
   processIng: {
     padding: vw(1),
     marginRight: vw(1.5),
-    color: "#5fb51d",
-    borderColor: "#5fb51d",
+    color: theme.ingAnnouncement,
+    borderColor: theme.ingAnnouncement,
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
     alignSelf: "center",
@@ -232,8 +234,8 @@ const styles = StyleSheet.create({
   processEtc: {
     padding: vw(1),
     marginRight: vw(1.5),
-    color: "#7e8387",
-    borderColor: "#7e8387",
+    color: theme.etcAnnouncement,
+    borderColor: theme.etcAnnouncement,
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
     alignSelf: "center",
@@ -272,7 +274,7 @@ const styles = StyleSheet.create({
     padding: vw(1.6),
     borderWidth: vw(0.16),
     borderRadius: vw(2.5),
-    borderColor: "#787878",
+    borderColor: theme.detail_cellBorder,
     justifyContent: "space-around",
   },
   infoCellColumn: {
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
     fontSize: vw(3.2),
     paddingHorizontal: vw(5),
     paddingVertical: vh(1),
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.detail_specialMark,
   },
 
   c_info: {

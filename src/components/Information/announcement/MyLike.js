@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
+
 import LikeItem from "./LikeItem";
+
 import { vw, vh } from "react-native-expo-viewport-units";
 import { Ionicons } from "@expo/vector-icons";
-
-import { useNavigation } from "@react-navigation/native";
 
 const MyLike = ({ navigation: { navigate }, route }) => {
   let list = useSelector((state) => state.like);
