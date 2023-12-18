@@ -1,13 +1,30 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleOff, toggleOn } from "../../../redux/slices/switchSlice";
+
+import MenuButton from "./MenuButton";
+
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { vw, vh } from "react-native-expo-viewport-units";
-
-import { useNavigation } from "@react-navigation/native";
+import { theme } from "../colors";
 
 const TopMenu = () => {
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
+  const switchValue = useSelector((state) => state.switchSlice.active);
+
+  const toggleSwitchHandler = () => {
+    if (switchValue == true) {
+      dispatch(toggleOff());
+    } else {
+      dispatch(toggleOn());
+    }
+  };
+
   return (
     <View style={styles.topMenu}>
       <View style={styles.menu1}>
@@ -15,8 +32,8 @@ const TopMenu = () => {
           <Text style={styles.menuItemText}>최근3개월</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={[styles.button, styles.menuItem]}>
-          <Text style={styles.menuItemText}>마감임박순</Text>
+        <TouchableOpacity onPress={toggleSwitchHandler}>
+          <MenuButton closing={switchValue} btnName={"마감임박순"} />
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.button, styles.menuItem]}>
@@ -73,7 +90,7 @@ const styles = StyleSheet.create({
   },
 
   menuItem: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.menuItem,
   },
   menuItemText: {
     fontSize: vw(3.5),
