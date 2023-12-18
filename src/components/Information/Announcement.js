@@ -1,23 +1,17 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { vw, vh } from "react-native-expo-viewport-units";
 import AnnouncementItem from "./announcement/AnnouncementItem";
 import TopMenu from "./announcement/TopMenu";
 import Loading from "../Loading/Loading";
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+import { useSelector } from "react-redux";
 
 const Announcement = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState([]);
+  const switchValue = useSelector((state) => state.switchSlice.active);
 
   const getAnnouncemnet = async () => {
     var url =
@@ -51,9 +45,57 @@ const Announcement = ({ navigation }) => {
     }
   };
 
+  const getAnnouncemnetClosing = async () => {
+    var url =
+      "http://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic";
+    var queryParams =
+      "?" +
+      encodeURIComponent("serviceKey") +
+      "=" +
+      "wR34V8YlK4Q0LeJio9OgWCIEFSNjOqSZ9nay8hJAJQEVQ1HOQ91RC0gtt1uPkud6%2FBkxjmVNpbl798wCvxA1YA%3D%3D";
+
+    queryParams +=
+      "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("100");
+    queryParams +=
+      "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1");
+    queryParams +=
+      "&" + encodeURIComponent("_type") + "=" + encodeURIComponent("json");
+    queryParams +=
+      "&" + encodeURIComponent("upkind") + "=" + encodeURIComponent("417000");
+
+    queryParams +=
+      "&" + encodeURIComponent("state") + "=" + encodeURIComponent("protect");
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(url + queryParams);
+      const jsonData = await response.json();
+
+      const arr = jsonData.response.body.items.item;
+      arr.sort((a, b) => {
+        return a.noticeEdt - b.noticeEdt;
+      });
+
+      setItems(arr);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getAnnouncemnet();
   }, []);
+
+  useEffect(() => {
+    if (switchValue) {
+      getAnnouncemnetClosing();
+    } else {
+      getAnnouncemnet();
+    }
+  }, [switchValue]);
 
   return (
     <View

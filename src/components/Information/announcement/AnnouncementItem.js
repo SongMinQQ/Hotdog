@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
-import { vw, vh } from "react-native-expo-viewport-units";
-
-import Like from "./Like";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+import Like from "./Like";
+
+import { vw, vh } from "react-native-expo-viewport-units";
+import { theme } from "../colors";
 
 const AnnouncementItem = ({
   desertionNo,
@@ -234,8 +226,8 @@ const styles = StyleSheet.create({
   processIng: {
     padding: vw(1),
     marginRight: vw(1.5),
-    color: "#5fb51d",
-    borderColor: "#5fb51d",
+    color: theme.ingAnnouncement,
+    borderColor: theme.ingAnnouncement,
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
     alignSelf: "center",
@@ -245,8 +237,8 @@ const styles = StyleSheet.create({
   processEtc: {
     padding: vw(1),
     marginRight: vw(1.5),
-    color: "#7e8387",
-    borderColor: "#7e8387",
+    color: theme.etcAnnouncement,
+    borderColor: theme.etcAnnouncement,
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
     alignSelf: "center",
@@ -254,8 +246,8 @@ const styles = StyleSheet.create({
   },
 
   infoSexF: {
-    color: "#e864aa",
-    borderColor: "#e864aa",
+    color: theme.sexF,
+    borderColor: theme.sexF,
     padding: vw(1),
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
@@ -266,8 +258,8 @@ const styles = StyleSheet.create({
     padding: vw(1),
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
-    color: "#2480d6",
-    borderColor: "#2480d6",
+    color: theme.sexM,
+    borderColor: theme.sexM,
     fontSize: vw(3.3),
     alignSelf: "center",
   },
@@ -275,9 +267,9 @@ const styles = StyleSheet.create({
     padding: vw(1),
     borderWidth: vw(0.3),
     borderRadius: vw(1.8),
-    color: "#7e8387",
+    color: theme.sexQ,
     fontSize: vw(3.3),
-    borderColor: "#7e8387",
+    borderColor: theme.sexQ,
     alignSelf: "center",
   },
 });
