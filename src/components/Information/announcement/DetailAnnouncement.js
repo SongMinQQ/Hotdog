@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   Alert,
+  Share,
 } from "react-native";
 import { insertLike, deleteLike } from "../../../redux/slices/likeSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -76,9 +77,18 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
 
   const callPhone = async () => {
     try {
-      Linking.openURL(`tel:${careTel}`);
+      await Linking.openURL(`tel:${careTel}`);
     } catch (e) {
       Alert.alert("전화 연결 오류", "기기 전화에 연결할 수 없습니다");
+      console.log(e);
+    }
+  };
+
+  const shareAddr = async () => {
+    try {
+      await Share.share({ message: `${careAddr}` });
+    } catch (e) {
+      Alert.alert("공유 할 수 없음", "기기가 공유 기능을 사용할 수 없습니다.");
       console.log(e);
     }
   };
@@ -110,7 +120,7 @@ const DetailAnnouncement = ({ navigation: { navigate }, route }) => {
           <View style={styles.emptyFlex1}></View>
           <View style={styles.titleShareRow}>
             <Text style={styles.title}>{kindCd}</Text>
-            <TouchableOpacity style={styles.icon}>
+            <TouchableOpacity style={styles.icon} onPress={shareAddr}>
               <Feather name="copy" size={vw(5.2)} color="black" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.icon} onPress={toggleHeart}>
