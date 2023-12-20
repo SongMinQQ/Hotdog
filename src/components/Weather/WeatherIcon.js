@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 const WeatherIcon = (props) => {
     return (
         <>  
-            <Ionicons name={props.name} size={24} color="black"/>
+            <Ionicons name={props.name} size={props.size} color="black"/>
         </>
     );
 };
