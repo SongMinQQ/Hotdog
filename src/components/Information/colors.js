@@ -1,7 +1,13 @@
 export const theme = {
-  menuItem: "#dbd9da",
+  menuItem: "#f5f5f5",
 
-  ingAnnouncement: "#9be815",
-  female: "#ed7bb8",
-  imgFrame: "#cccccc",
+  ingAnnouncement: "#5fb51d",
+  etcAnnouncement: "#7e8387",
+
+  sexF: "#e864aa",
+  sexM: "#2480d6",
+  sexQ: "#7e8387",
+
+  detail_cellBorder: "#787878",
+  detail_specialMark: "#f5f5f5",
 };
