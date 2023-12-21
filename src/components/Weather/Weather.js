@@ -33,7 +33,7 @@ const Weather = () => {
             else if(reqData[0].wf === '맑음'){
                 setWeatherIcon('sunny');
             }
-            else if(reqData[0].wf === '구름많음'){
+            else if(reqData[0].wf === '구름많음' || reqData[0].wf === '구름많고 한때 눈' || reqData[0].wf === '흐림'){
                 setWeatherIcon('cloud');
             }
             else if(reqData[0].wf === '흐리고 눈' || reqData[0].wf === '흐리고 비/눈'){
